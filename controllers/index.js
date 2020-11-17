@@ -1,4 +1,5 @@
 import Base from './base';
+import modelIndex from '../model';
 
 class ControllerIndex extends Base {
   constructor() { super(); }
@@ -7,14 +8,9 @@ class ControllerIndex extends Base {
     ctx.body = await ctx.render('index', { message: '这是模版渲染的数据' })
   }
 
-  actionGetData(ctx) {
-    ctx.body = {
-      code: '0',
-      data: [
-        {name: 'xyd', age: 18},
-        {name: 'xuyede', age: 19},
-      ]
-    }
+  async actionGetData(ctx) {
+    const ret = await modelIndex.getBooksData();
+    ctx.body = ret;
   }
 }
 
