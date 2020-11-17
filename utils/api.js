@@ -13,7 +13,6 @@ export const service = axios.create({
 });
 
 service.interceptors.request.use( config => {
-  logger.info('test http')
   let token;
   // TODO 配置token
   if (token) {

@@ -1,16 +1,20 @@
 import log4js from 'log4js';
+import path from 'path';
+const log = path.join(__dirname, '..', 'log');
+const getKoaLogger = require('koa-log4js');
 
 log4js.configure({
+  replaceConsole: true,
   appenders: { 
-    out: { type: 'console' },
+    out: { type: 'stdout' },
     allLog: { 
-      type: "file", filename: "../log/all.log", maxLogSize: 10485760, backups: 3, keepFileExt: true
+      type: "file", filename: `${log}/all.log`, maxLogSize: 10485760, backups: 3, keepFileExt: true
     },
     httpLog: { 
-      type: "dateFile", filename: "../log/http.log", pattern: ".yyyy-MM-dd", keepFileExt: true 
+      type: "file", filename: `${log}/http.log`, pattern: ".yyyy-MM-dd"
     },
     errorLog: { 
-      type: 'file', filename: '../log/error.log'
+      type: 'file', filename: `${log}/error.log`
     },
     error: { 
       type: "logLevelFilter", level: "error", appender: 'errorLog' 
@@ -18,8 +22,8 @@ log4js.configure({
   },
   categories: { 
     http: { 
-      appenders: ['out', 'httpLog'], 
-      level: "debug" 
+      appenders: ['httpLog'], 
+      level: "all" 
     },
     default: { 
       appenders: ['out', 'allLog', 'error'], 
@@ -30,7 +34,7 @@ log4js.configure({
 
 const logger = log4js.getLogger();
 const httpLog = log4js.getLogger('http');
-const httpLogger = log4js.connectLogger(httpLog, { level: 'WARN' });
+const httpLogger = getKoaLogger();
 
 export {
   logger, httpLogger

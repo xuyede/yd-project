@@ -1,5 +1,6 @@
 import Base from './base';
 import modelIndex from '../model';
+import { logger } from '../config/log.config';
 
 class ControllerIndex extends Base {
   constructor() { super(); }
@@ -9,8 +10,13 @@ class ControllerIndex extends Base {
   }
 
   async actionGetData(ctx) {
-    const ret = await modelIndex.getBooksData();
-    ctx.body = ret;
+    try {
+      const ret = await modelIndex.getBooksData();
+      ctx.body = ret;
+    } catch (error) {
+      logger.error(error.message);
+    }
+    
   }
 }
 

@@ -13,7 +13,10 @@ global.logger = logger;
 
 // 错误统一处理
 error(app);
-
+// app.use(async (ctx, next) => {
+//   await httpLogger(ctx.request, ctx.response, next);
+// });
+app.use(httpLogger);
 // 路由
 initRouter(app);
 
@@ -27,7 +30,6 @@ app.context.render = co.wrap(render({
 
 // 静态资源服务器
 app.use(serve(koaConfig.staticDir));
-app.use(httpLogger);
 
 // 监听端口
 app.listen(koaConfig.port, () => {
