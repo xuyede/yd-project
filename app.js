@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import koaConfig from './config/koa.config';
+import { logger, httpLogger } from './config/log.config';
 import netWork from './utils/ip';
 import initRouter from './router';
 import render from 'koa-swig';
@@ -8,6 +9,7 @@ import serve from 'koa-static';
 import error from './middlewares/error_handler';
 
 const app = new Koa();
+global.logger = logger;
 
 // 错误统一处理
 error(app);
@@ -25,6 +27,7 @@ app.context.render = co.wrap(render({
 
 // 静态资源服务器
 app.use(serve(koaConfig.staticDir));
+app.use(httpLogger);
 
 // 监听端口
 app.listen(koaConfig.port, () => {
