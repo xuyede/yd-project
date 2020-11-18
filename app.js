@@ -7,19 +7,20 @@ import render from 'koa-swig';
 import co from 'co';
 import serve from 'koa-static';
 import error from './middlewares/error_handler';
+import bodyParser from 'koa-bodyparser';
 
 const app = new Koa();
 global.logger = logger;
 
 // 错误统一处理
 error(app);
-// app.use(async (ctx, next) => {
-//   await httpLogger(ctx.request, ctx.response, next);
-// });
-app.use(httpLogger);
+
+// 格式化请求参数
+app.use(bodyParser());
+// 捕获所有请求，记录日志
+app.use(httpLogger({ nolog: '\\.(gif|jpe?g|png|js|css|map|ico)$' }));
 // 路由
 initRouter(app);
-
 // 模版渲染
 app.context.render = co.wrap(render({
   root: koaConfig.viewDir,
@@ -27,7 +28,6 @@ app.context.render = co.wrap(render({
   ext: 'html',
   varControls: ['[[', ']]']
 }));
-
 // 静态资源服务器
 app.use(serve(koaConfig.staticDir));
 

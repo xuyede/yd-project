@@ -14,9 +14,17 @@ class ControllerIndex extends Base {
       const ret = await modelIndex.getBooksData();
       ctx.body = ret;
     } catch (error) {
-      logger.error(error.message);
+      logger.error(`${error.message} [${error.info}]`);
     }
-    
+  }
+
+  async actionPostData(ctx) {
+    try {
+      const ret = await modelIndex.postBooksData();
+      ctx.body = ret;
+    } catch (error) {
+      logger.error(`${error.message} [${error.info}]`);
+    }
   }
 }
 

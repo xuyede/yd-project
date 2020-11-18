@@ -1,7 +1,8 @@
 import log4js from 'log4js';
+import log4jsPolyfill from '../middlewares/connect_log';
 import path from 'path';
+
 const log = path.join(__dirname, '..', 'log');
-const getKoaLogger = require('koa-log4js');
 
 log4js.configure({
   replaceConsole: true,
@@ -22,7 +23,7 @@ log4js.configure({
   },
   categories: { 
     http: { 
-      appenders: ['httpLog'], 
+      appenders: ['out', 'allLog', 'httpLog'], 
       level: "all" 
     },
     default: { 
@@ -33,8 +34,10 @@ log4js.configure({
 })
 
 const logger = log4js.getLogger();
-const httpLog = log4js.getLogger('http');
-const httpLogger = getKoaLogger();
+const httpLog = log4js.getLogger("http");
+const httpLogger = function(opt = {}) {
+  return log4jsPolyfill(httpLog, { level: 'auto', nolog: opt.nolog || '\\.(gif|jpe?g|png|ico)$' });
+}
 
 export {
   logger, httpLogger
