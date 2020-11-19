@@ -1,0 +1,17 @@
+{
+  "name": "yd-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/xuyede/yd-project.git",
+  "author": "xuyede <yede.xu@jyblife.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon ./app.js"
+  },
+  "dependencies": {
+    "@koa/router": "^10.0.0",
+    "co": "^4.6.0",
+    "koa": "^2.13.0",
+    "koa-swig": "^2.2.1"
+  }
+}
