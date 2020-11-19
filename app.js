@@ -3,12 +3,15 @@ const Router = require('@koa/router');
 const render = require('koa-swig');
 const co = require('co');
 const path = require('path');
+const serve = require('./middlewares/static_serve');
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/', (ctx, next) => {
-  ctx.body = 'hw'
+app.use(serve(path.join(__dirname, 'assets')));
+
+router.get('/', async (ctx, next) => {
+  ctx.body = await ctx.render('index');
 })
 
 app.context.render = co.wrap(render({
