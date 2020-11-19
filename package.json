@@ -5,7 +5,8 @@
   "repository": "https://github.com/xuyede/yd-project.git",
   "author": "xuyede <yede.xu@jyblife.com>",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --exec 'babel-node ./app.js'"
+    "dev": "NODE_ENV=development nodemon --exec 'babel-node ./app.js'",
+    "test:api": "mocha --file ./tests/api.spec.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -23,6 +24,9 @@
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
-    "@babel/preset-env": "^7.12.1"
+    "@babel/preset-env": "^7.12.1",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "supertest": "^6.0.1"
   }
 }
