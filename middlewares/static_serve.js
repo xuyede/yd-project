@@ -2,12 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const mime = require('mime');
 
-const staticExt = ['.js', '.css', '.jpg', '.jpeg', '.png', '.ico', '.map'];
+const defaultStaticExt = ['.js', '.css', '.jpg', '.jpeg', '.png', '.ico', '.map'];
 
-function serve(staticDir) {
-  console.log(staticDir)
+function serve(staticDir, staticExt = defaultStaticExt) {
   return async function serve(ctx, next) {
-    let done = false;
     const { method, url } = ctx.request;
     const ext = path.parse(url).ext;
     const mimeType = mime.getType(ext);
