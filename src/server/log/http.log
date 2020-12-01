@@ -1,0 +1,1 @@
+[2020-12-01T18:01:01.635] [INFO] http - ::ffff:172.16.5.121 - - "GET / {} HTTP/1.1" 200 1273 "" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36"

@@ -10,7 +10,7 @@ import error from './middlewares/error_handler';
 import bodyParser from 'koa-bodyparser';
 
 const app = new Koa();
-global.logger = logger;
+global.logger = logger; 
 
 // 错误统一处理
 error(app);
